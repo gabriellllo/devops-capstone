@@ -1,18 +1,9 @@
 pipeline {
         agent any
         stages {
-        stage('Setup environment') {
-            steps {
-                withPythonEnv('python3'){
-                    sh 'pip install -r requirements.txt'
-                }
-            }
-        }
         stage('Lint python code') {
             steps {
-                withPythonEnv('python3'){
-                    sh 'pylint --disable=R,C,W1203 app.py'
-                }
+                sh 'pylint --disable=R,C,W1203 app.py'
             }
         }
         stage('Lint Docker file') {
