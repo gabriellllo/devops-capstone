@@ -1,0 +1,19 @@
+apiVersion: v1 
+kind: ConfigMap 
+metadata: 
+  name: aws-auth 
+  namespace: kube-system 
+data: 
+  mapRoles: | 
+    - rolearn: arn:aws:iam::250588910674:role/eksctl-test-cluster-nodegroup-tes-NodeInstanceRole-1X58LV26LLHCQ
+      username: system:node:{{EC2PrivateDNSName}} 
+      groups: 
+        - system:bootstrappers 
+        - system:nodes 
+  mapUsers: | 
+    - userarn: arn:aws:iam::250588910674:user/jenkins 
+      username: jenkins 
+      groups: 
+        - system:masters
+# use:        
+# kubectl apply -f aws-auth.yaml
