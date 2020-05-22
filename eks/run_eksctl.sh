@@ -8,5 +8,5 @@ eksctl create cluster \
 # eksctl delete cluster --region=us-west-2 --name=test-cluster
 
 # or run:
-# eksctl cluster create -f config.yaml
-# eksctl cluster delete -f config.yaml
+# eksctl create cluster -f eks_config.yaml
+# eksctl delete cluster -f eks_config.yaml
