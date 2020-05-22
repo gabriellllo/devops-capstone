@@ -3,7 +3,10 @@ pipeline {
         stages {
         stage('Lint python code') {
             steps {
-                sh 'pylint --disable=R,C,W1203 app.py'
+                withPythonEnv('python3'){
+                    sh 'pip install -r requirements.txt'
+                    sh 'pylint --disable=R,C,W1203 app.py'
+                }
             }
         }
         stage('Lint Docker file') {
