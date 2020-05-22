@@ -3,7 +3,8 @@ pipeline {
         stages {
         stage('Setup environment') {
             steps {
-                sh 'make setup'
+                sh 'python3 -m venv ~/.devops'
+                sh '. ~/.devops/bin/activate'
             }
         }
         stage('Upload to AWS') {
