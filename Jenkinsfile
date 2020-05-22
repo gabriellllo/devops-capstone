@@ -10,6 +10,7 @@ pipeline {
             steps {
                 withPythonEnv('python3'){
                     sh 'pip install -r requirements.txt'
+                    sh 'pip install pylint'
                     sh 'pylint --disable=R,C,W1203 app.py'
                 }
             }
