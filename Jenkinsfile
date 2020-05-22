@@ -3,12 +3,16 @@ pipeline {
         stages {
         stage('Setup environment') {
             steps {
-                sh 'pip install -r requirements.txt'
+                withPythonEnv('app_env'){
+                    sh 'pip install -r requirements.txt'
+                }
             }
         }
         stage('Lint python code') {
             steps {
-                sh 'pylint --disable=R,C,W1203 app.py'
+                withPythonEnv('app_env'){
+                    sh 'pylint --disable=R,C,W1203 app.py'
+                }
             }
         }
         stage('Upload to AWS') {
