@@ -5,15 +5,12 @@ pipeline {
             steps {
                 sh 'python3 -m venv venv'
                 sh '. venv/bin/activate'
-            }
-        }
-        stage('Install dependencies') {
-            steps {
                 sh 'pip install --upgrade pip && pip install -r requirements.txt'
             }
         }
         stage('Lint python code') {
             steps {
+                sh '. venv/bin/activate'
                 sh 'pylint --disable=R,C,W1203 app.py'
             }
         }
