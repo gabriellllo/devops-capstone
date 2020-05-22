@@ -3,19 +3,12 @@ pipeline {
         stages {
         stage('Setup environment') {
             steps {
-                sh '''
-                    python3 -m venv venv
-                    . venv/bin/activate
-                    pip install -r requirements.txt
-                '''
+                sh 'pip install -r requirements.txt'
             }
         }
         stage('Lint python code') {
             steps {
-                sh '''
-                    . venv/bin/activate
-                    pylint --disable=R,C,W1203 app.py
-                '''
+                sh 'pylint --disable=R,C,W1203 app.py'
             }
         }
         stage('Upload to AWS') {
