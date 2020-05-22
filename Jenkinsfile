@@ -3,14 +3,14 @@ pipeline {
         stages {
         stage('Setup environment') {
             steps {
-                withPythonEnv('app_env'){
+                withPythonEnv('app-env'){
                     sh 'pip install -r requirements.txt'
                 }
             }
         }
         stage('Lint python code') {
             steps {
-                withPythonEnv('app_env'){
+                withPythonEnv('app-env'){
                     sh 'pylint --disable=R,C,W1203 app.py'
                 }
             }
