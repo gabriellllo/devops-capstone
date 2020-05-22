@@ -1,4 +1,9 @@
 pipeline {
+        environment {
+            registry = "gabriellllo/flaskapp"
+            registryCredential = 'dockerhubID'
+            dockerImage = ''
+        }
         agent any
         stages {
         stage('Lint python code') {
@@ -12,6 +17,25 @@ pipeline {
         stage('Lint Docker file') {
             steps {
                 sh 'hadolint Dockerfile'
+            }
+        }
+        stage('Building image') {
+            steps{
+                script {
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                }
+            }
+        }        
+        //stage('Push image') {
+        //    steps {
+        //        sh 'docker login --username gabriellllo'
+        //        sh 'docker tag flaskapp:latest $dockerpath:v1'
+        //        sh 'docker push $dockerpath:v1'
+        //    }
+        //}
+        stage('Remove docker image') {
+            steps{
+                sh "docker rmi $registry:$BUILD_NUMBER"
             }
         }
         stage('Upload to AWS') {
