@@ -20,26 +20,28 @@ pipeline {
                 sh 'hadolint Dockerfile'
             }
         }
-        stage('Building image') {
+        stage('Build image') {
             steps{
                 script {
                     dockerImage = docker.build registry + ":$BUILD_NUMBER"
                 }
             }
         }        
-        //stage('Push image') {
-        //    steps {
-        //        sh 'docker login --username gabriellllo'
-        //        sh 'docker tag flaskapp:latest $dockerpath:v1'
-        //        sh 'docker push $dockerpath:v1'
-        //    }
-        //}
-        stage('Remove docker image') {
+        stage('Push image') {
+            steps{
+                script {
+                    docker.withRegistry( '', registryCredential ) {
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
+        stage('Remove local image') {
             steps{
                 sh "docker rmi $registry:$BUILD_NUMBER"
             }
         }
-        stage('Upload to AWS') {
+        stage('Deploy to cluster') {
             steps {
                 withAWS(region:'us-west-2', credentials:'aws-static') {
                     sh 'echo "Uploading content with AWS credentials"'
