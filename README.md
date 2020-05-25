@@ -71,5 +71,12 @@ If the pipeline runs successfully, you should see something like this in Blue Oc
 
 ## Example workflow
 
-- Here we can see what happens when a new version of the application is committed to git that contains errors or does not pass the linting step.
-For example, let's add a typo in L66 of `app.py`:
+Here we can see what happens when a new version of the application is committed to git that contains errors or does not pass the linting step.  
+For example, let's add a typo in L66 of `app.py`: the pipeline will fail and avoid deploying the application to production, you will see something like this in Blue Ocean:  
+![Screen](screens/07_error.png)
+
+Notice that our application also serves a standard endpoint that returns `<h3>Sklearn Prediction Home</h3>`, see `app.py` in L23:  
+![Screen](screens/08_std.png)
+
+We will now correct the error in `app.py` and then deploy a new version of the application that serves a `<h3>Sklearn Prediction Home version 2</h3>` message, modifying L23 and L66 in `app.py`.
+
