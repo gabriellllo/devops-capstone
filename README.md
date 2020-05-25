@@ -48,5 +48,18 @@ Now you have a working Kubernetes cluster on AWS with an application deployed.
 
 ## Jenkins setup
 Install Jenkins on a EC2 instance to manage the pipeline.
+- follow [these instructions](https://www.jenkins.io/doc/book/installing/) to install Jenkins
+- install Jenkins plugins, at least: blue ocean, docker, github, AWS credentials, Pyenv Pipeline. A full list of the plugins used for this project is available in `eks/jenkins_plugins.txt`
+- install `python3` on the Jenkins node
+- install the AWS CLI on the Jenkins node
+- install `kubectl` on the Jenins node
+- install `hadolint` on the Jenkins node.
 
-## Pipeline
+## The pipeline
+The implemented Jenkins pipeline will:
+- checkout code from github
+- lint the python code using `pylint` in a `python3` environment
+- lint the docker file using `hadolint`
+- build the docker image and push it to dockerhub
+- deploy the image on the kubernetes cluster to update the application 
+
