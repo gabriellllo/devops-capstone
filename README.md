@@ -83,3 +83,14 @@ We will now correct the error in `app.py` and then deploy a new version of the a
 Before we do it, let's check the current version of the application running on the cluster using `kubectl describe pods`, note the version of the image that is being used, here `flaskapp:6`:
 ![Screen](screens/09_pod_old.png)
 
+After pushing our updates to git and rerunning the pipeline, we should now see something like this in Blue Ocean for the `python linting` step:
+![Screen](screens/10_pass_lint.png)
+
+We can also check the deployment right after the pipeline finishes, and we should see something like this:
+![Screen](screens/11_pod_new.png)
+A new pod is created alongside the old one and the old one is deleted after the new one is initialized and running. We can also see that the image used in the new pod has a different tag `flaskapp:4` (the numbering is assigned automatically by docker at build image time).
+
+We can also verify that the new version of the application is running correctly, checking that the standard endpoint shows the new version and that the application is still serving predictions:
+![Screen](screens/12_new_std.png)
+
+This demonstrates that the rolling deployment was successful and that the new, corrected version of the application is correctly running on our cluster.
