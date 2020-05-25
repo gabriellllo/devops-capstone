@@ -88,7 +88,7 @@ After pushing our updates to git and rerunning the pipeline, we should now see s
 
 We can also check the deployment right after the pipeline finishes, and we should see something like this:
 ![Screen](screens/11_pod_new.png)
-A new pod is created alongside the old one and the old one is deleted after the new one is initialized and running. We can also see that the image used in the new pod has a different tag `flaskapp:4` (the numbering is assigned automatically by docker at build image time).
+A new pod, running the latest version of the application, is created alongside the old one and then the old one is deleted after the new one is initialized and running. We can also see that the image used in the new pod has a different tag `flaskapp:4` (the numbering is assigned automatically by docker at build image time).
 
 We can also verify that the new version of the application is running correctly, checking that the standard endpoint shows the new version and that the application is still serving predictions:
 ![Screen](screens/12_new_std.png)
