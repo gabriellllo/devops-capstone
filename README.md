@@ -33,13 +33,18 @@ A full explanation on how to do it is available at this [tutorial page from AWS]
 -  Deploy the initial version of the application on 2 pods and expose it as a service:  
 `kubectl apply -f eks/flaskapp.yaml`  
 `kubectl apply -f eks/flaskapp-svc.yaml`
+![Output](screens/02_deploy.png)
 
-- you can now check that the application is running using:  
+- You can now check that the application is running using:  
 `kubectl get deployments`  
 `kubectl get services`  
+![Output](screens/03_check.png)
 
 - you can then test that the application is running by using the provided script, using the correct address for the load balancer (check the EXTERNAL-IP column in the output of the `get services` command):  
 `./make_prediction.sh`
+![Output](screens/04_get_pred.png)
+
+Now you have a working Kubernetes cluster on AWS with an application deployed.
 
 ## Jenkins setup
 Install Jenkins on a EC2 instance to manage the pipeline.
