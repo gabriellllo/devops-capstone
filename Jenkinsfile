@@ -45,7 +45,7 @@ pipeline {
             steps {
                 withAWS(region:'us-west-2', credentials:'aws-static') {
                     sh 'echo "Deploying image to kubernetes cluster"'
-                    sh "kubectl set image deployments/flaskapp flaskapp=$registry:$BUILD_NUMBER"
+                    sh "kubectl set image deployment/flaskapp flaskapp=$registry:$BUILD_NUMBER"
                     //kubectl run flaskapp --image=docker.io/gabriellllo/flaskapp:5 --port=80
                     //kubectl expose deployment flaskapp --type=LoadBalancer --port=8080 --target-port=80
                     //kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=jocatalin/kubernetes-bootcamp:v2
