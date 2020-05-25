@@ -17,7 +17,7 @@ In order to setup the required infrastructure, you will need:
 - the additional commands `eksctl` and `kubectl`, [see this AWS documentation on how to set them up](https://docs.aws.amazon.com/eks/latest/userguide/getting-started-eksctl.html).
 
 ## Kubernetes cluster setup
--  You can setup a cluster using EKS on AWS with the following command:  
+-  You can setup a kubernetes cluster with 2 `t2.micro` nodes using EKS on AWS with the following command:  
 `eksctl create cluster -f eks/eks_config.yaml`  
 The cluster can be deleted using:  
 `eksctl delete cluster --region=us-west-2 --name=test-cluster`
@@ -40,17 +40,17 @@ The cluster can be deleted using:
 `./make_prediction.sh`
 ![Output](screens/04_get_pred.png)
 
-Now you have a working Kubernetes cluster on AWS with an application deployed.
+Now you have a working Kubernetes cluster with 2 nodes on AWS with an application deployed that runs on one pod.
 
 ## Jenkins setup
 Install Jenkins on a EC2 instance to manage the pipeline.
 - follow [these instructions](https://www.jenkins.io/doc/book/installing/) to install Jenkins
 - install Jenkins plugins, at least: blue ocean, docker, github, AWS credentials, Pyenv Pipeline. A full list of the plugins used for this project is available in `eks/jenkins_plugins.txt`
 - install `python3` on the Jenkins node
-- install the AWS CLI on the Jenkins node
 - install `kubectl` on the Jenins node
-- install `hadolint` on the Jenkins node.
--  You will need to authorize the AWS user credentials stored in jenkins to access your cluster, you can follow the example file provided and modify accordingly:   
+- install `hadolint` on the Jenkins node
+- install the AWS CLI on the Jenkins node, configure it for the user `jenkins` on the machine
+- You will need to authorize the AWS user credentials stored for the `jenkins` user to access your cluster, you can follow the example file provided and modify it for your needs:   
 `kubectl apply -f eks/aws-auth.yaml`  
 A full explanation on how to do it is available at this [tutorial page from AWS](https://aws.amazon.com/it/premiumsupport/knowledge-center/amazon-eks-cluster-access/).
 
@@ -64,6 +64,12 @@ The implemented Jenkins pipeline will:
 - lint the python code using `pylint` in a `python3` environment
 - lint the docker file using `hadolint`
 - build the docker image and push it to dockerhub
-- deploy the new image on the kubernetes cluster and update the running application to its latest version
+- deploy the new image on the kubernetes cluster and update the running application to its latest version: first new pods will be created to run the latest version of the application, then the pods running the old version will be deleted.
 
+If the pipeline runs successfully, you should see something like this in Blue Ocean:
+![Screen](screens/06_pipeline.png)
 
+## Example workflow
+
+- Here we can see what happens when a new version of the application is committed to git that contains errors or does not pass the linting step.
+For example, let's add a typo in L66 of `app.py`:
