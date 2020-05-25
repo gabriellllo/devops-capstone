@@ -15,5 +15,3 @@ data:
       username: jenkins 
       groups: 
         - system:masters
-# use:        
-# kubectl apply -f aws-auth.yaml
