@@ -80,3 +80,6 @@ Notice that our application also serves a standard endpoint that returns `<h3>Sk
 
 We will now correct the error in `app.py` and then deploy a new version of the application that serves a `<h3>Sklearn Prediction Home version 2</h3>` message, modifying L23 and L66 in `app.py`.
 
+Before we do it, let's check the current version of the application running on the cluster using `kubectl describe pods`, note the version of the image that is being used, here `flaskapp:6`:
+![Screen](screens/09_pod_old.png)
+
