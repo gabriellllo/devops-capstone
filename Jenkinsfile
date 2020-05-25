@@ -6,6 +6,15 @@ pipeline {
         }
         agent any
         stages {
+        stage('test command') {
+            steps {
+                withAWS(region:'us-west-2', credentials:'aws-static') {
+                    sh 'echo "Deploying image to kubernetes cluster"'
+                    sh "kubectl config use-context udacity1@test-cluster.us-west-2.eksctl.io"
+                    sh "kubectl set image deployment/flaskapp flaskapp=gabriellllo/flaskapp:7"
+            }
+        }
+        stages {
         stage('Lint python code') {
             steps {
                 withPythonEnv('python3'){

@@ -26,10 +26,6 @@ The cluster can be deleted using:
 `kubectl get nodes`  
 ![Output](screens/01_get_nodes.png)
 
--  You will need to authorize the user under which jenkins is running to access your cluster, you can follow the example file provided and modify accordingly:   
-`kubectl apply -f eks/aws-auth.yaml`  
-A full explanation on how to do it is available at this [tutorial page from AWS](https://aws.amazon.com/it/premiumsupport/knowledge-center/amazon-eks-cluster-access/).
-
 -  Deploy the initial version of the application on 2 pods and expose it as a service:  
 `kubectl apply -f eks/flaskapp.yaml`  
 `kubectl apply -f eks/flaskapp-svc.yaml`
@@ -54,6 +50,9 @@ Install Jenkins on a EC2 instance to manage the pipeline.
 - install the AWS CLI on the Jenkins node
 - install `kubectl` on the Jenins node
 - install `hadolint` on the Jenkins node.
+-  You will need to authorize the AWS user credentials stored in jenkins to access your cluster, you can follow the example file provided and modify accordingly:   
+`kubectl apply -f eks/aws-auth.yaml`  
+A full explanation on how to do it is available at this [tutorial page from AWS](https://aws.amazon.com/it/premiumsupport/knowledge-center/amazon-eks-cluster-access/).
 
 ## Instances on EC2:
 At the end of the process you'll have something similar to this in your EC2 page:
