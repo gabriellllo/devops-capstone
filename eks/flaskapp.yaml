@@ -6,7 +6,7 @@ spec:
   selector:
     matchLabels:
       app: flaskapp
-  replicas: 2 # run 2 pods 
+  replicas: 1 # run 1 pod 
   template:
     metadata:
       labels:
