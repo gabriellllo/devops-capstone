@@ -55,11 +55,16 @@ Install Jenkins on a EC2 instance to manage the pipeline.
 - install `kubectl` on the Jenins node
 - install `hadolint` on the Jenkins node.
 
-## The pipeline
+## Instances on EC2:
+At the end of the process you'll have something similar to this in your EC2 page:
+![Screen](screens/05_instances.png)
+
+## Jenkins pipeline
 The implemented Jenkins pipeline will:
 - checkout code from github
 - lint the python code using `pylint` in a `python3` environment
 - lint the docker file using `hadolint`
 - build the docker image and push it to dockerhub
-- deploy the image on the kubernetes cluster to update the application 
+- deploy the new image on the kubernetes cluster and update the running application to its latest version
+
 
