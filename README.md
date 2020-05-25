@@ -93,4 +93,4 @@ A new pod, running the latest version of the application, is created alongside t
 We can also verify that the new version of the application is running correctly, checking that the standard endpoint shows the new version and that the application is still serving predictions:
 ![Screen](screens/12_new_std.png)
 
-This demonstrates that the rolling deployment was successful and that the new, corrected version of the application is correctly running on our cluster.
+This demonstrates that the rolling deployment was successful and that the new, corrected version of the application is running on our cluster.
