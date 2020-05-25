@@ -24,9 +24,7 @@ The cluster can be deleted using:
 
 -  After the cluster is setup, you'll be able to check its status using the `kubectl` command:  
 `kubectl get nodes`  
-![Output](https://github.com/gabriellllo/devops-capstone/blob/master/screens/01_get_nodes.png)
 ![Output](screens/01_get_nodes.png)
-
 
 -  You will need to authorize the user under which jenkins is running to access your cluster, you can follow the example file provided and modify accordingly:   
 `kubectl apply -f eks/aws-auth.yaml`  
