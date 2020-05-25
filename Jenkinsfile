@@ -14,7 +14,6 @@ pipeline {
                     sh "kubectl set image deployment/flaskapp flaskapp=gabriellllo/flaskapp:7"
             }
         }
-        stages {
         stage('Lint python code') {
             steps {
                 withPythonEnv('python3'){
